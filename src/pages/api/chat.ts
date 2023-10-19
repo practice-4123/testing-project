@@ -157,8 +157,8 @@ export default async function POST(req: Request) {
     const response = await hfClient.textGenerationStream(payload);
 
     // Convert the response into a friendly text-stream
-    const stream = HuggingFaceStream(response);
+    const stream = async () => HuggingFaceStream(response);
 
     // Respond with the stream
-    return new StreamingTextResponse(stream);
+    return new StreamingTextResponse(await stream());
 }
